@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Chrome orders.mzansimart.co.za",
+  "Type": "Screen",
+  "Id": "V2-EV6xdqUi5avwHAxRPVQ",
+  "Reference": "BTbqZopDyUCdhFv7gtmRMw/V2-EV6xdqUi5avwHAxRPVQ",
+  "ParentRef": "BTbqZopDyUCdhFv7gtmRMw/GqEFFZ2iMECm27e4GQPq4w",
+  "Created": "2026-06-04T20:37:07.5486185Z",
+  "Updated": "2026-06-04T20:37:07.5486185Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

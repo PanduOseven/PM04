@@ -1,0 +1,12 @@
+﻿{
+  "Name": "Chrome orders.mzansimart.co.za",
+  "Type": "App",
+  "Id": "I03aaI1xW0qUj-Z_eaT3gA",
+  "Reference": "BTbqZopDyUCdhFv7gtmRMw/I03aaI1xW0qUj-Z_eaT3gA",
+  "Created": "2026-06-04T20:37:07.5002836Z",
+  "Updated": "2026-06-04T20:37:07.5002836Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
