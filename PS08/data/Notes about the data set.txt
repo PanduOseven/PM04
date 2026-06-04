@@ -1,0 +1,7 @@
+Notes about the dataset
+
+The invoices.zip contains 12 PDF files with varying layouts so your RPA bot must be robust to find the invoice number, supplier name, and invoice total in slightly different positions and labels.
+
+One file (INV-2025-0000-CORRUPT.pdf) is intentionally a corrupted text file to test error handling.
+
+One invoice (INV-2025-0001-PASSWORD_PROTECTED.pdf) is accompanied by a .meta file containing the text PASSWORD_PROTECTED to simulate a password-protected file (so your bot can check for unreadable PDFs and log them). In a real environment you would detect PDF password protection via your PDF-reading activity/package and then write an error entry.

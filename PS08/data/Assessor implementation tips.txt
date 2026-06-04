@@ -1,0 +1,7 @@
+Quick implementation tips (optional, for the assessor)
+
+In UiPath, use For Each File in Folder → Read PDF Text (or Read PDF with OCR when necessary) → use Regex patterns to extract Invoice Number (INV[-\s]\d{4,} or Invoice\s*Number[:\s]*([A-Za-z0-9-]+)), Supplier (look for Supplier: / company name near top), and Invoice Total (patterns like R\s?[\d,]+\.\d{2} or Total[:\s]*R\s?[\d,.,]+), then Append Range into Invoice_Log.xlsx.
+
+For password-protected PDFs, Read PDF Text usually throws an exception — catch it, log "Password protected" or "Unreadable PDF" in Error_Log.xlsx with filename and timestamp, then Continue.
+
+Validate extracted totals (remove commas, convert to numeric) and if a field is missing, log as a warning entry (e.g., Error Type: Missing Field) and still append a row with blanks or NULL markers as per stakeholder requirement.

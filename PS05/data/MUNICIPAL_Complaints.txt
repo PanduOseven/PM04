@@ -1,0 +1,51 @@
+Complaint_ID,Citizen_Name,Complaint_Type,Submission_Channel,Complaint_Text,Date_Received
+C001,Thabo Mokoena,Water,Email,Burst pipe near my house,2025-09-01
+C002,Naledi Dlamini,Electricity,SMS,Load shedding not on schedule,2025-09-03
+C003,Sibusiso Nkosi,Refuse,PDF Form,Bin not collected this week,2025-08-27
+C004,Ayesha Khan,Other,Email,Street light not working,2025-08-20
+C005,Johan van Wyk,Water,SMS,No water supply since yesterday,2025-09-05
+C006,Zanele Ndlovu,Electricity,Email,Transformer exploded in my street,2025-08-25
+C007,Thabo Mokoena,Refuse,SMS,Rubbish piling up on street corner,2025-09-10
+C008,Naledi Dlamini,Other,PDF Form,Potholes on main road,2025-08-30
+C009,Sibusiso Nkosi,Water,Email,Low water pressure in my area,2025-09-07
+C010,Ayesha Khan,Electricity,SMS,No power for 3 days,2025-09-09
+C011,Johan van Wyk,Refuse,Email,Refuse truck missed our block,2025-09-02
+C012,Zanele Ndlovu,Other,PDF Form,Illegal dumping near park,2025-08-22
+C013,Thabo Mokoena,Water,Email,Burst pipe near my house,2025-08-28
+C014,Naledi Dlamini,Electricity,PDF Form,Transformer exploded in my street,2025-09-11
+C015,Sibusiso Nkosi,Refuse,SMS,Bin not collected this week,2025-09-04
+C016,Ayesha Khan,Other,Email,Street light not working,2025-08-26
+C017,Johan van Wyk,Water,SMS,No water supply since yesterday,2025-09-08
+C018,Zanele Ndlovu,Electricity,Email,Load shedding not on schedule,2025-08-24
+C019,Thabo Mokoena,Refuse,PDF Form,Rubbish piling up on street corner,2025-09-06
+C020,Naledi Dlamini,Other,SMS,Potholes on main road,2025-08-29
+C021,Sibusiso Nkosi,Water,Email,Low water pressure in my area,2025-09-12
+C022,Ayesha Khan,Electricity,SMS,No power for 3 days,2025-09-01
+C023,Johan van Wyk,Refuse,Email,Refuse truck missed our block,2025-08-23
+C024,Zanele Ndlovu,Other,PDF Form,Illegal dumping near park,2025-09-07
+C025,Thabo Mokoena,Water,Email,No water supply since yesterday,2025-09-02
+C026,Naledi Dlamini,Electricity,SMS,Load shedding not on schedule,2025-09-05
+C027,Sibusiso Nkosi,Refuse,PDF Form,Bin not collected this week,2025-08-30
+C028,Ayesha Khan,Other,Email,Street light not working,2025-09-09
+C029,Johan van Wyk,Water,SMS,Burst pipe near my house,2025-08-27
+C030,Zanele Ndlovu,Electricity,Email,Transformer exploded in my street,2025-08-21
+C031,Thabo Mokoena,Refuse,SMS,Rubbish piling up on street corner,2025-09-10
+C032,Naledi Dlamini,Other,PDF Form,Potholes on main road,2025-08-25
+C033,Sibusiso Nkosi,Water,Email,Low water pressure in my area,2025-09-03
+C034,Ayesha Khan,Electricity,SMS,No power for 3 days,2025-09-06
+C035,Johan van Wyk,Refuse,Email,Refuse truck missed our block,2025-09-11
+C036,Zanele Ndlovu,Other,PDF Form,Illegal dumping near park,2025-08-22
+C037,Thabo Mokoena,Water,Email,Burst pipe near my house,2025-08-28
+C038,Naledi Dlamini,Electricity,PDF Form,Transformer exploded in my street,2025-09-08
+C039,Sibusiso Nkosi,Refuse,SMS,Bin not collected this week,2025-09-12
+C040,Ayesha Khan,Other,Email,Street light not working,2025-08-29
+C041,Johan van Wyk,Water,SMS,No water supply since yesterday,2025-09-01
+C042,Zanele Ndlovu,Electricity,Email,Load shedding not on schedule,2025-08-23
+C043,Thabo Mokoena,Refuse,PDF Form,Rubbish piling up on street corner,2025-09-05
+C044,Naledi Dlamini,Other,SMS,Potholes on main road,2025-08-26
+C045,Sibusiso Nkosi,Water,Email,Low water pressure in my area,2025-09-07
+C046,Ayesha Khan,Electricity,SMS,No power for 3 days,2025-09-04
+C047,Johan van Wyk,Refuse,Email,Refuse truck missed our block,2025-08-24
+C048,Zanele Ndlovu,Other,PDF Form,Illegal dumping near park,2025-09-02
+C049,Thabo Mokoena,Water,Email,Burst pipe near my house,2025-09-09
+C050,Naledi Dlamini,Electricity,SMS,Transformer exploded in my street,2025-08-30
