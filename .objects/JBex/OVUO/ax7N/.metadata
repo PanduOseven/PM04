@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Chrome Lovable App",
+  "Type": "Screen",
+  "Id": "ax7NzP39bECyrrOwhdc1aA",
+  "Reference": "BTbqZopDyUCdhFv7gtmRMw/ax7NzP39bECyrrOwhdc1aA",
+  "ParentRef": "BTbqZopDyUCdhFv7gtmRMw/OVUOwK_k1kOg98xLti3HBg",
+  "Created": "2026-06-07T14:02:29.4957983Z",
+  "Updated": "2026-06-07T14:02:29.4957983Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

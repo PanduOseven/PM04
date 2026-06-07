@@ -1,0 +1,12 @@
+﻿{
+  "Name": "Chrome Lovable App",
+  "Type": "App",
+  "Id": "JBexm_vTE0ucFhcRTC7BTg",
+  "Reference": "BTbqZopDyUCdhFv7gtmRMw/JBexm_vTE0ucFhcRTC7BTg",
+  "Created": "2026-06-07T14:02:29.3499543Z",
+  "Updated": "2026-06-07T14:02:29.3499543Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
