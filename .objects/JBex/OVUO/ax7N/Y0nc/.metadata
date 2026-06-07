@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Customer ID",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "Y0ncQdnoV0K0f8yL0uT2ow",
+  "Reference": "BTbqZopDyUCdhFv7gtmRMw/Y0ncQdnoV0K0f8yL0uT2ow",
+  "ParentRef": "BTbqZopDyUCdhFv7gtmRMw/ax7NzP39bECyrrOwhdc1aA",
+  "Created": "2026-06-07T14:19:21.3704405Z",
+  "Updated": "2026-06-07T14:19:21.3704405Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

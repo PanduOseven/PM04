@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Submit Order",
+  "Type": "Element",
+  "TaxonomyType": "Button",
+  "Id": "XXSxBTj4eEiVbjxVHXof9g",
+  "Reference": "BTbqZopDyUCdhFv7gtmRMw/XXSxBTj4eEiVbjxVHXof9g",
+  "ParentRef": "BTbqZopDyUCdhFv7gtmRMw/ax7NzP39bECyrrOwhdc1aA",
+  "Created": "2026-06-07T14:24:16.5034541Z",
+  "Updated": "2026-06-07T14:24:16.5034541Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.10.31.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
