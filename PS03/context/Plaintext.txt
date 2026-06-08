@@ -1,0 +1,126 @@
+PM-04-PS03: Build the software code or workflows for software robots for each component of RPA solution as per the SDD
+Scope of Practical Skill 
+You are required to perform the task below and your Supervisor/facilitator/mentor will assess you based on the rubric attached below:
+Given an analysis (components and process) of the PDD, the learner must be able to:
+●	PA0301	Use an appropriate platform (generally selected by customers)
+●	PA0302	Design the processes that will be taken by the Bot (which might be scheduled for later action)
+●	PA0303 	Apply no-code from the platform or low-code (using formulas) block programming constructs using library of prebuilt methods and leverage them (Integrate various modules of the RPA solution)
+●	PA0304 	Use programming skills to build a library of prebuilt methods (if not existing)
+Applied Knowledge 
+●	AK0301 Scripting / programming of languages to understand the bot's source code
+●	AK0302 The range of standard templates and tools available and how to use them
+●	AK0303 Processes and workflows pertaining to the RPA solution: 
+o	Quality PDD
+o	Must know how to read the diagram
+o	Given a PPD and must code the solution for it
+●	AK0304 Software and other tools employed in the RPA solution
+●	AK0305 How to work on various operating systems – every company will have their own OS dependent on the company
+Internal Assessment Criteria
+●	IAC0301   The RPA platform IDE (Integrated Development Environment) (such as UiPath Studio) is used to design the workflows
+●	IAC0302   Error handling mechanisms are included and while working with a team, the production readiness of the solution is ensured, including error handling, audit level logging and the use of dynamic values, storing in automation management tools (such as UiPath Orchestrator) or dynamic Excel files
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+Practical application task – PS03
+SECTION 3: PM-04-PS03: Build the software code or workflows for software robots for each component of RPA solution as per the SDD
+Scenario
+Introduction
+Welcome to this practical learning activity designed to test your comprehensive understanding of the RPA development lifecycle. As a second-year student, you are expected to apply your theoretical knowledge to a real-world business problem. This assessment will require you to analyze a Process Design Document (PDD), select an appropriate RPA platform, design and build a robust bot, and ensure it is ready for production deployment, all while incorporating advanced programming and error-handling techniques.
+The scenario for this activity is based on a common business process in the South African financial services sector: compliance with the Financial Intelligence Centre Act (FICA). FICA mandates that financial institutions verify and record client information to combat financial crimes. You will be tasked with automating a portion of this manual, data-intensive process.
+Scenario: Mzansi Bank FICA Compliance Automation
+You are an RPA Developer at a leading South African bank, Mzansi Bank. The bank's FICA compliance team currently spends significant time manually updating client FICA statuses in a web-based portal. Your task is to automate this process to increase efficiency and reduce human error.
+The process involves:
+1.	Retrieving a list of clients from a data file.
+2.	Navigating to the internal "Mzansi FICA Portal" (a mock web portal).
+3.	For each client, entering their details (Client ID and SA ID Number) into the portal.
+4.	Submitting the details to verify the FICA status.
+5.	Based on the status returned by the portal, updating the client's record in a master data file.
+6.	Generating a final report detailing the outcome for each client.
+Process Design Document (PDD) Analysis
+As part of the analysis, you are given a simplified PDD.
+●	Process Name: Mzansi Bank FICA Status Update Bot
+●	Business Unit: Compliance Department
+●	Trigger: Manually initiated by the Compliance Officer.
+●	Input Data: A CSV file named fica_compliance_data.csv containing client records with columns: Client_ID, Full_Name, SA_ID_Number, FICA_Status.
+●	Expected Output: An updated fica_compliance_data.csv file with the FICA_Status column updated for each client, and an additional log file (processing_log.txt) detailing the outcome of each transaction.
+●	Web Application: Mzansi FICA Portal (simulated).
+●	Assumptions: All required applications are available and have a stable network connection.
+Practical Assessment Task
+Your task is to develop and document an RPA solution that adheres to the following criteria. Each part of this task directly assesses specific learning outcomes.
+Part 1: Platform Selection & Initial Setup
+(Assesses PA0301, AK0304, AK0305, IAC0301)
+1.	Platform Selection: Choose one of the following RPA platforms for your solution: UiPath, Automation Anywhere, Blue Prism, Microsoft Power Automate, Kofax RPA, or WorkFusion. Justify your choice based on its suitability for a financial institution like Mzansi Bank.
+2.	Environment Setup: Describe how you set up your development environment. This includes any required software installations and configurations.
+3.	Initial Workflow: Create a new project and design a basic, empty workflow using the platform's IDE (Integrated Development Environment).
+Part 2: Process Design & Main Workflow
+(Assesses PA0302, AK0303)
+1.	Read the PDD: Carefully read and understand the process flow described in the PDD Analysis above.
+2.	High-Level Design: On your worksheet, sketch or describe the high-level process flow that the bot will follow. This should include the main steps from start to finish.
+3.	Main Workflow Logic: Implement the main workflow in your chosen RPA platform. The core of this logic should involve:
+o	Reading the fica_compliance_data.csv file.
+o	Iterating through each row (client record).
+o	For each row, invoking the next part of the process (the sub-workflow).
+Part 3: No-Code & Low-Code Implementation
+(Assesses PA0303, AK0302)
+1.	Web Automation: Build a sub-workflow that automates the interaction with the "Mzansi FICA Portal" (simulated). This should use the platform's standard activities for web automation (e.g., "Open Browser," "Type Into," "Click"). You do not need to build a real portal; just demonstrate the logic to interact with elements on a page.
+2.	Data Manipulation: Apply low-code techniques (e.g., using formulas in a UiPath "Assign" activity or Automation Anywhere's "String" commands) to prepare the data for the web portal. For example, trim any whitespace from the Client ID.
+3.	Integration: Use a library of prebuilt methods (standard platform activities) to seamlessly integrate the data reading and web automation parts of your solution.
+Part 4: Custom Code Development
+(Assesses PA0304, AK0301)
+1.	Problem Statement: Before updating the FICA status, the bank wants to perform a basic validation on the SA ID Number to ensure it has the correct structure (13 digits, no special characters).
+2.	Custom Library: Develop a new, reusable code component or library method (e.g., a C# class in UiPath, a Python function in Automation Anywhere, or a custom component in Blue Prism) that validates the SA ID Number. The function should take a string as input and return True if it's a valid 13-digit number and False otherwise.
+3.	Integration: Integrate this custom method into your main workflow. Call this method for each client record and proceed to the next step only if the SA ID number is valid.
+Part 5: Production Readiness
+(Assesses IAC0302)
+1.	Error Handling: Implement robust error handling mechanisms to gracefully manage unexpected situations. This should include a "Try-Catch" block or equivalent for:
+o	File Not Found: What if the fica_compliance_data.csv file is missing?
+o	Invalid SA ID: What if the custom validation in Part 4 fails?
+o	UI Element Not Found: What if the bot cannot find a specific element on the web page?
+2.	Logging: Ensure that your bot provides detailed, audit-level logging. Log the start and end of the process, the outcome of each client's FICA check (success or failure), and any errors encountered.
+3.	Dynamic Values: Demonstrate the use of dynamic values by storing the input file path, web portal URL, and output folder in a configuration file (or a similar method). Explain how this would be managed in an automation management tool like UiPath Orchestrator or the Automation Anywhere Control Room.
+Data Set:
+For this exercise, you will be provided with a sample dataset.
+Questions
+Part 1: Platform Selection & Initial Setup
+1.	Selected RPA Platform
+o	Platform: _________________________
+o	Justification: Explain why you chose this platform for a financial institution like Mzansi Bank.
+2.	Development Environment Setup
+o	Describe the steps you took to set up your environment.
+Part 2: Process Design & Main Workflow
+1.	High-Level Process Design
+o	Describe the main steps of your process flow here. You can use a list or a simple diagram.
+Part 3: No-Code & Low-Code Implementation
+1.	Web Automation Logic
+o	Describe the sequence of activities you used to automate the web portal interaction.
+2.	Data Manipulation Examples
+o	Provide an example of a low-code expression or formula you used.
+Part 4: Custom Code Development
+1.	Custom Code:
+o	Paste the code for your SA ID Number validation method here. Make sure to include comments.
+
+
+
+
+Part 5: Production Readiness & Error Handling
+1.	Error Handling Scenarios
+o	Fill in the table below to document your error handling.
+Scenario	Type of Error	How it is Handled in the Workflow?
+fica_compliance_data.csv missing		
+Invalid SA ID Number		
+UI element not found on portal		
+2.	Logging Strategy
+o	Explain your logging strategy. What information is being logged at each step?
+3.	Dynamic Values
+o	Explain how your solution uses dynamic values and how this would be managed in a real-world Orchestrator environment.
