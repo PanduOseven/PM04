@@ -114,7 +114,7 @@
       <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Sequence" sap:VirtualizedContainerService.HintSize="561.2,2575.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Sequence" sap:VirtualizedContainerService.HintSize="561.2,2772" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="variable1" />
       <Variable x:TypeArguments="x:Boolean" Name="bool_IsValidID" />
@@ -246,13 +246,13 @@
         </uix:TargetApp>
       </uix:NApplicationCard.TargetApp>
     </uix:NApplicationCard>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_FICA]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="451.2,747.2" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_FICA]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="451.2,944" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd2:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd2:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="449.6,574.4" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="449.6,771.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -286,7 +286,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <Assign sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_4">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[str_FullName]</OutArgument>
               </Assign.To>
@@ -300,6 +300,16 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </Assign>
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Custom SA ID Number Validation&#xD;&#xA;' Input: SA_ID (String)&#xD;&#xA;' Returns: True if valid 13-digit numeric SA ID, False otherwise&#xD;&#xA;Dim isValid As Boolean = False&#xD;&#xA;&#xD;&#xA;If Not String.IsNullOrEmpty(SA_ID) Then&#xD;&#xA;    ' Check length is exactly 13 characters&#xD;&#xA;    If SA_ID.Length = 13 Then&#xD;&#xA;        ' Check all characters are digits (no special chars)&#xD;&#xA;        Dim allDigits As Boolean = True&#xD;&#xA;        For Each ch As Char In SA_ID&#xD;&#xA;            If Not Char.IsDigit(ch) Then&#xD;&#xA;                allDigits = False&#xD;&#xA;                Exit For&#xD;&#xA;            End If&#xD;&#xA;        Next&#xD;&#xA;        isValid = allDigits&#xD;&#xA;    End If&#xD;&#xA;End If&#xD;&#xA;&#xD;&#xA;result = isValid" DisplayName="Invoke Code" sap:VirtualizedContainerService.HintSize="416,188" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+              <ui:InvokeCode.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="SA_ID">
+                  <VisualBasicValue x:TypeArguments="x:String" ExpressionText="str_SA_ID" />
+                </InArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="result">
+                  <VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="bool_IsValidID" />
+                </OutArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
           </Sequence>
         </ActivityAction>
       </ui:ForEachRow.Body>
