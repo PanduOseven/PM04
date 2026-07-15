@@ -1,0 +1,149 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="EvaluateRisk" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="EvaluateRisk_1"
+  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib"
+  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib"
+  xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.uipath.com/workflow/activities">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String><x:String>System.Activities.Statements</x:String><x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String><x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String><x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String><x:String>System.Collections</x:String><x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String><x:String>System.Data</x:String><x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String><x:String>System.IO</x:String><x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String><x:String>System.Xml</x:String><x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String><x:String>UiPath.Core.Activities</x:String><x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String><x:String>GlobalConstantsNamespace</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference><AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference><AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference><AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference><AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference><AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference><AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference><AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference><AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference><AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference><AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="EvaluateRisk - Apply 4 Business Rules" sap2010:WorkflowViewState.IdRef="Sequence_EvaluateRisk">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object"><x:Boolean x:Key="IsExpanded">True</x:Boolean></scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="str_Reason" Default="&quot;&quot;" />
+      <Variable x:TypeArguments="x:Boolean" Name="bool_IsHighRisk" Default="False" />
+      <Variable x:TypeArguments="x:Double" Name="dbl_Amount" Default="0" />
+      <Variable x:TypeArguments="x:String" Name="str_TransferType" Default="&quot;&quot;" />
+      <Variable x:TypeArguments="x:String" Name="str_Verified" Default="&quot;&quot;" />
+      <Variable x:TypeArguments="x:String" Name="str_RecipientAccount" Default="&quot;&quot;" />
+      <Variable x:TypeArguments="x:String" Name="str_MaskedRecipient" Default="&quot;&quot;" />
+      <Variable x:TypeArguments="x:String" Name="str_TransactionID" Default="&quot;&quot;" />
+      <Variable x:TypeArguments="x:Boolean" Name="bool_IsSuspicious" Default="False" />
+    </Sequence.Variables>
+    <!-- COMPONENT: EvaluateRisk -->
+    <!-- Applies the 4 high-risk business rules per the PDD: -->
+    <!-- (1) Amount &gt; R10,000 | (2) International transfer | (3) Not Verified | (4) Recipient on suspicious list -->
+    <!-- Concatenates all matching reasons. Masks account numbers for compliance. -->
+    <!-- Outcome: A DataTable of high-risk transactions with masked accounts and reason strings. -->
+    <ui:BuildDataTable DataTable="[out_dtHighRisk]" DisplayName="Build_HighRisk_Output_Table" sap2010:WorkflowViewState.IdRef="BuildDataTable_1">
+      <ui:BuildDataTable.TableInfo>
+        <scg:List x:TypeArguments="ui:BuildDataTableColumnInfo" Capacity="4">
+          <ui:BuildDataTableColumnInfo ColumnName="TransactionID" DataType="System.String" />
+          <ui:BuildDataTableColumnInfo ColumnName="Amount" DataType="System.Double" />
+          <ui:BuildDataTableColumnInfo ColumnName="RecipientAccount" DataType="System.String" />
+          <ui:BuildDataTableColumnInfo ColumnName="Reason" DataType="System.String" />
+        </scg:List>
+      </ui:BuildDataTable.TableInfo>
+    </ui:BuildDataTable>
+    <ForEach x:TypeArguments="sd:DataRow" DisplayName="ForEach_TransactionRow" sap2010:WorkflowViewState.IdRef="ForEach_1" Values="[in_dtTransactions.AsEnumerable().ToList()]">
+      <ActivityAction x:TypeArguments="sd:DataRow">
+        <ActivityAction.Argument><DelegateInArgument x:TypeArguments="sd:DataRow" Name="currentRow" /></ActivityAction.Argument>
+        <Sequence DisplayName="Evaluate_Single_Transaction">
+          <Assign DisplayName="Extract_TransactionID"><Assign.To><OutArgument x:TypeArguments="x:String">[str_TransactionID]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[currentRow("TransactionID").ToString().Trim()]</InArgument></Assign.Value></Assign>
+          <Assign DisplayName="Extract_Amount"><Assign.To><OutArgument x:TypeArguments="x:Double">[dbl_Amount]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Double">[Convert.ToDouble(currentRow("Amount"))]</InArgument></Assign.Value></Assign>
+          <Assign DisplayName="Extract_TransferType"><Assign.To><OutArgument x:TypeArguments="x:String">[str_TransferType]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[currentRow("TransferType").ToString().Trim()]</InArgument></Assign.Value></Assign>
+          <Assign DisplayName="Extract_Verified"><Assign.To><OutArgument x:TypeArguments="x:String">[str_Verified]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[currentRow("Verified").ToString().Trim()]</InArgument></Assign.Value></Assign>
+          <Assign DisplayName="Extract_RecipientAccount"><Assign.To><OutArgument x:TypeArguments="x:String">[str_RecipientAccount]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[currentRow("RecipientAccount").ToString().Trim()]</InArgument></Assign.Value></Assign>
+          <Assign DisplayName="Reset_Flags"><Assign.To><OutArgument x:TypeArguments="x:Boolean">[bool_IsHighRisk]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Boolean">[False]</InArgument></Assign.Value></Assign>
+          <Assign DisplayName="Reset_Reason"><Assign.To><OutArgument x:TypeArguments="x:String">[str_Reason]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[""]</InArgument></Assign.Value></Assign>
+          <!-- Rule 1: Amount &gt; R10,000 -->
+          <If Condition="[dbl_Amount &gt; 10000]" DisplayName="Rule1_Amount_Threshold" sap2010:WorkflowViewState.IdRef="If_Rule1">
+            <If.Then>
+              <Sequence DisplayName="Flag_Amount">
+                <Assign DisplayName="Set_Reason_Amount"><Assign.To><OutArgument x:TypeArguments="x:String">[str_Reason]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[str_Reason + "Amount &gt; R10,000 | "]</InArgument></Assign.Value></Assign>
+                <Assign DisplayName="Set_HighRisk_Amount"><Assign.To><OutArgument x:TypeArguments="x:Boolean">[bool_IsHighRisk]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Boolean">[True]</InArgument></Assign.Value></Assign>
+              </Sequence>
+            </If.Then>
+          </If>
+          <!-- Rule 2: International Transfer -->
+          <If Condition="[str_TransferType.Equals(&quot;International&quot;)]" DisplayName="Rule2_International" sap2010:WorkflowViewState.IdRef="If_Rule2">
+            <If.Then>
+              <Sequence DisplayName="Flag_International">
+                <Assign DisplayName="Set_Reason_International"><Assign.To><OutArgument x:TypeArguments="x:String">[str_Reason]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[str_Reason + "International | "]</InArgument></Assign.Value></Assign>
+                <Assign DisplayName="Set_HighRisk_International"><Assign.To><OutArgument x:TypeArguments="x:Boolean">[bool_IsHighRisk]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Boolean">[True]</InArgument></Assign.Value></Assign>
+              </Sequence>
+            </If.Then>
+          </If>
+          <!-- Rule 3: Not Verified -->
+          <If Condition="[str_Verified.Equals(&quot;No&quot;)]" DisplayName="Rule3_Not_Verified" sap2010:WorkflowViewState.IdRef="If_Rule3">
+            <If.Then>
+              <Sequence DisplayName="Flag_NotVerified">
+                <Assign DisplayName="Set_Reason_NotVerified"><Assign.To><OutArgument x:TypeArguments="x:String">[str_Reason]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[str_Reason + "Not Verified | "]</InArgument></Assign.Value></Assign>
+                <Assign DisplayName="Set_HighRisk_NotVerified"><Assign.To><OutArgument x:TypeArguments="x:Boolean">[bool_IsHighRisk]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Boolean">[True]</InArgument></Assign.Value></Assign>
+              </Sequence>
+            </If.Then>
+          </If>
+          <!-- Rule 4: Recipient on Suspicious List (LINQ check) -->
+          <Assign DisplayName="Check_Suspicious_List">
+            <Assign.To><OutArgument x:TypeArguments="x:Boolean">[bool_IsSuspicious]</OutArgument></Assign.To>
+            <Assign.Value><InArgument x:TypeArguments="x:Boolean">[in_dtSuspicious.AsEnumerable().Any(Function(row) row("SuspiciousAccountNumber").ToString().Trim().Equals(str_RecipientAccount))]</InArgument></Assign.Value>
+          </Assign>
+          <If Condition="[bool_IsSuspicious]" DisplayName="Rule4_Suspicious_Account" sap2010:WorkflowViewState.IdRef="If_Rule4">
+            <If.Then>
+              <Sequence DisplayName="Flag_Suspicious">
+                <Assign DisplayName="Set_Reason_Suspicious"><Assign.To><OutArgument x:TypeArguments="x:String">[str_Reason]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:String">[str_Reason + "Suspicious Account | "]</InArgument></Assign.Value></Assign>
+                <Assign DisplayName="Set_HighRisk_Suspicious"><Assign.To><OutArgument x:TypeArguments="x:Boolean">[bool_IsHighRisk]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Boolean">[True]</InArgument></Assign.Value></Assign>
+              </Sequence>
+            </If.Then>
+          </If>
+          <!-- If high risk, mask account and add to output -->
+          <If Condition="[bool_IsHighRisk]" DisplayName="If_IsHighRisk" sap2010:WorkflowViewState.IdRef="If_IsHighRisk">
+            <If.Then>
+              <Sequence DisplayName="Add_To_HighRisk_Output">
+                <!-- Mask account: first 5 chars + ***** + last 4 chars -->
+                <Assign DisplayName="Mask_Recipient_Account">
+                  <Assign.To><OutArgument x:TypeArguments="x:String">[str_MaskedRecipient]</OutArgument></Assign.To>
+                  <Assign.Value><InArgument x:TypeArguments="x:String">[str_RecipientAccount.Substring(0, Math.Min(5, str_RecipientAccount.Length)) + "*****" + str_RecipientAccount.Substring(Math.Max(0, str_RecipientAccount.Length - 4))]</InArgument></Assign.Value>
+                </Assign>
+                <!-- Trim trailing separator from reason -->
+                <Assign DisplayName="Trim_Reason_String">
+                  <Assign.To><OutArgument x:TypeArguments="x:String">[str_Reason]</OutArgument></Assign.To>
+                  <Assign.Value><InArgument x:TypeArguments="x:String">[str_Reason.TrimEnd(" "c).TrimEnd("|"c).TrimEnd(" "c)]</InArgument></Assign.Value>
+                </Assign>
+                <ui:AddDataRow ArrayRow="[{str_TransactionID, dbl_Amount, str_MaskedRecipient, str_Reason}]" DataTable="[out_dtHighRisk]" DisplayName="Add_HighRisk_Row" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                <!-- Log using MASKED account only for compliance -->
+                <ui:LogMessage DisplayName="Log_Flagged_Transaction" Level="Info" Message="[ &quot;[PS07-EvaluateRisk] FLAGGED: &quot; + str_TransactionID + &quot; | Recipient: &quot; + str_MaskedRecipient + &quot; | Reasons: &quot; + str_Reason ]" />
+              </Sequence>
+            </If.Then>
+          </If>
+        </Sequence>
+      </ActivityAction>
+    </ForEach>
+    <Assign DisplayName="Assign_HighRisk_Count">
+      <Assign.To><OutArgument x:TypeArguments="x:Int32">[out_intHighRiskCount]</OutArgument></Assign.To>
+      <Assign.Value><InArgument x:TypeArguments="x:Int32">[out_dtHighRisk.Rows.Count]</InArgument></Assign.Value>
+    </Assign>
+    <ui:LogMessage DisplayName="Log_Evaluation_Complete" Level="Info" Message="[ &quot;[PS07-EvaluateRisk] Evaluation complete. High-risk transactions: &quot; + out_intHighRiskCount.ToString() ]" />
+  </Sequence>
+</Activity>

@@ -1,0 +1,160 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="PS07" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="PS07_1"
+  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib"
+  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib"
+  xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:ui="http://schemas.uipath.com/workflow/activities">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="PS07 - Fraud Detection Bot (Main Orchestrator)" sap2010:WorkflowViewState.IdRef="Sequence_Main">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="str_DataFolder" Default="PS07\data\extracted" />
+      <Variable x:TypeArguments="x:String" Name="str_OutputFolder" Default="PS07\Output" />
+      <Variable x:TypeArguments="x:String" Name="str_ReportsFolder" Default="PS07\Output\Reports" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Transactions" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_Suspicious" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_HighRisk" />
+      <Variable x:TypeArguments="x:Int32" Name="int_HighRiskCount" Default="0" />
+    </Sequence.Variables>
+
+    <!-- MAIN ORCHESTRATOR: Fraud Detection Bot for Rapid Transfer system -->
+    <!-- Follows PDD: Input -> Read Suspicious List -> Evaluate Risk -> Generate Reports -> Output Summary -->
+    <!-- Uses variables for all paths -- zero hard-coding -->
+
+    <ui:LogMessage DisplayName="Log_Bot_Start" Level="Info" Message="[ &quot;[PS07] === FRAUD DETECTION BOT STARTED === &quot; + Now.ToString(&quot;yyyy-MM-dd HH:mm:ss&quot;) ]" />
+
+    <!-- Ensure output directories exist -->
+    <ui:CreateDirectory DisplayName="Create_Output_Directory" Path="[str_OutputFolder]" />
+    <ui:CreateDirectory DisplayName="Create_Reports_Directory" Path="[str_ReportsFolder]" />
+
+    <!-- STEP 1: Read Daily Transactions (Component 1) -->
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke_ReadTransactions" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Components\ReadTransactions.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_TransactionsPath">[ str_DataFolder + "\Daily_Transactions.xlsx" ]</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dtTransactions">[ dt_Transactions ]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+
+    <!-- STEP 2: Read Suspicious Accounts List (Component 2) -->
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke_ReadSuspiciousList" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Components\ReadSuspiciousList.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_SuspiciousPath">[ str_DataFolder + "\Suspicious_Accounts.csv" ]</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dtSuspicious">[ dt_Suspicious ]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+
+    <!-- STEP 3: Evaluate Risk Against 4 Business Rules (Component 3) -->
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke_EvaluateRisk" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Components\EvaluateRisk.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtTransactions">[ dt_Transactions ]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtSuspicious">[ dt_Suspicious ]</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_dtHighRisk">[ dt_HighRisk ]</OutArgument>
+        <OutArgument x:TypeArguments="x:Int32" x:Key="out_intHighRiskCount">[ int_HighRiskCount ]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+
+    <ui:LogMessage DisplayName="Log_HighRisk_Count" Level="Info" Message="[ &quot;[PS07] High-risk transactions identified: &quot; + int_HighRiskCount.ToString() ]" />
+
+    <!-- STEP 4: Generate Individual PDF Reports for Each High-Risk Transaction (Component 4) -->
+    <If Condition="[int_HighRiskCount &gt; 0]" DisplayName="If_HasHighRiskTransactions" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Sequence DisplayName="Generate_Individual_Reports">
+          <ForEach x:TypeArguments="sd:DataRow" DisplayName="ForEach_HighRiskRow" sap2010:WorkflowViewState.IdRef="ForEach_1" Values="[dt_HighRisk.AsEnumerable().ToList()]">
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="currentRow" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Process_Single_Report">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke_GeneratePdfReport" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Components\GeneratePdfReport.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_TransactionID">[ currentRow(&quot;TransactionID&quot;).ToString() ]</InArgument>
+                    <InArgument x:TypeArguments="x:Double" x:Key="in_Amount">[ Convert.ToDouble(currentRow(&quot;Amount&quot;)) ]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_RecipientAccount">[ currentRow(&quot;RecipientAccount&quot;).ToString() ]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Reason">[ currentRow(&quot;Reason&quot;).ToString() ]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_OutputFolder">[ str_ReportsFolder ]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </ActivityAction>
+          </ForEach>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="No_HighRisk_Found">
+          <ui:LogMessage DisplayName="Log_No_HighRisk" Level="Warn" Message="[ &quot;[PS07] No high-risk transactions found. Skipping individual report generation.&quot; ]" />
+        </Sequence>
+      </If.Else>
+    </If>
+
+    <!-- STEP 5: Generate Summary CSV (Component 5) -->
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke_GenerateSummaryCsv" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="Components\GenerateSummaryCsv.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtHighRisk">[ dt_HighRisk ]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_OutputPath">[ str_OutputFolder + &quot;\High_Risk_Transactions_Summary.csv&quot; ]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+
+    <ui:LogMessage DisplayName="Log_Bot_Complete" Level="Info" Message="[ &quot;[PS07] === ALL TASKS COMPLETE === Reports generated: &quot; + int_HighRiskCount.ToString() + &quot; | Summary saved to: &quot; + str_OutputFolder + &quot;\High_Risk_Transactions_Summary.csv&quot; ]" />
+
+  </Sequence>
+</Activity>
